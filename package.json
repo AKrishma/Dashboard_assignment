@@ -1,0 +1,24 @@
+{
+  "name": "dashboard_assignment",
+  "version": "1.0.0",
+  "description": "TGA Assignment using node, express, graphql, mongodb and react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "asyncawait": "^1.0.6",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.12.3",
+    "graphql-tools": "^2.19.0",
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.0.2"
+  },
+  "devDependencies": {
+    "brew": "0.0.8"
+  }
+}
