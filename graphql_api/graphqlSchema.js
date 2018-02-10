@@ -10,15 +10,21 @@ var Board = mongoose.model('board', {
  List = mongoose.model('list', {  
     id: mongoose.Schema.Types.ObjectId,
     boardId: mongoose.Schema.Types.ObjectId,
-    listName: String
-  }),
- Task = mongoose.model('task', {  
+    listName: String,
+    tasks: [{
+      id: mongoose.Schema.Types.ObjectId,
+      taskName: String,
+      taskDesc: String,
+      taskStatus: String
+    }]
+  });
+ /* Task = mongoose.model('task', {  
     id: mongoose.Schema.Types.ObjectId,
     listId: mongoose.Schema.Types.ObjectId,
     taskName: String,
     taskDesc: String,
     taskStatus: String
-  });
+  });  */
 
 var BoardType = new graphql.GraphQLObjectType({  
     name: 'board',
@@ -45,6 +51,9 @@ var ListType = new graphql.GraphQLObjectType({
         },
         listName: {
           type: graphql.GraphQLString
+        },
+        tasks: {
+          type: graphql.GraphQLList
         }
       }
     }
@@ -139,16 +148,19 @@ var ListType = new graphql.GraphQLObjectType({
     description: 'Add a List',
     args: {
         boardId: {
-            type: graphql.GraphQLString
+          type: graphql.GraphQLString
         },
         listName: {
-            type:  graphql.GraphQLString
+          type:  graphql.GraphQLString
       },
+      tasks: {
+          type: graphql.GraphQLList
+      }
     },
     resolve: (root, args) => {
       var newList = new List({
         boardId: args.boardId,
-        listName: args.listName
+        listName: args.listName,
       })
       newList.id = newList._id
       return new Promise((resolve, reject) => {
@@ -191,31 +203,33 @@ var ListType = new graphql.GraphQLObjectType({
         })
       })
     }
-  };
-  /* MutationEditTask = {  
-    type: TaskType,
-    description: 'Edit Task',
-    args: {
-      title: {
-        name: 'Todo title',
-        //type: new graphql.GraphQLNonNull(GraphQLString)
-        type:  graphql.GraphQLString
+  },
+  MutationEditTask = {
+      type: TaskType,
+      args: {
+        listId: {
+          type:  graphql.GraphQLString  
+        },
+        taskName: {
+          type:  graphql.GraphQLString
+        },
+        taskDesc: {
+          type:  graphql.GraphQLString
+        },
+        taskStatus: {
+          type:  graphql.GraphQLString
+        }
+      },
+      resolve(root, params) {
+        return Task.findByIdAndUpdate(
+          params.id,
+          { $set: { taskName: params.taskName, taskDesc: params.taskDesc, taskStatus: params.taskStatus } },
+          { new: true }
+        )
+          .catch(err => new Error(err));
       }
-    },
-    resolve: (root, args) => {
-      var newTodo = new TODO({
-        title: args.title,
-        completed: false
-      })
-      newTodo.id = newTodo._id
-      return new Promise((resolve, reject) => {
-        newTodo.save(function (err) {
-          if (err) reject(err)
-          else resolve(newTodo)
-        })
-      })
     }
-  } */
+  
   
   var MutationType = new graphql.GraphQLObjectType({  
     name: 'Mutation',
@@ -223,7 +237,7 @@ var ListType = new graphql.GraphQLObjectType({
       addBoard: MutationAddBoard,
       addList: MutationAddList,
       addTask: MutationAddTask
-      //editTask: MutationEditTask
+     // editTask: MutationEditTask
     }
   });
 

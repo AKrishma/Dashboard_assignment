@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {Row, Col} from 'react-flexbox-grid';
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Board from './components/Board';
 import List from './components/List';
 import Task from './components/Task';
@@ -18,7 +18,7 @@ class AppRoutes extends Component {
 
 render() {
   return (
-    //ReactDOM.render(<MuiThemeProvider>
+    <MuiThemeProvider>
     <Router>
     <Row around='xs'>
       <Col xs={12} md={11}>
@@ -28,7 +28,7 @@ render() {
       </Col>
     </Row>
   </Router>
-  //</MuiThemeProvider>, document.getElementById('root'));
+  </MuiThemeProvider>
   )
 }
 }

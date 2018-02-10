@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { request } from 'graphql-request';
-
 import Board from './components/Board' ;
 import List from './components/List' ;
 import Task from './components/Task' ;

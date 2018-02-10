@@ -1,16 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 
 class List extends React.Component {
-    constructor(props){
-        //props
-        super(props);
-        // states, styles, event bind, 
-    }
-
-    render() {
+     render() {
        
         if(this.props.listQuery && this.props.listQuery.loading) {
             return <div>{"loading...!"}</div>
@@ -25,16 +19,14 @@ class List extends React.Component {
                 (lists.length > 0)?
                 lists.map((l) => {
                     return (
-                        <li key={l.list} boardId= {l.boardId} className = "listIem">
-                            {l.listName}
+                        <li boardId= {l.boardId} className = "listIem">
+                            <a href="/task">{l.listName}</a>
                         </li>
                     )
                 }): " Loading.. !"
             }
-            <li>
-                <a href="#"> Add a task </a>
-            </li>
             </ul>
+            <p><a href="#"> Add a task </a></p>
             </div>
         );  
     }

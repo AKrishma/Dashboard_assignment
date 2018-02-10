@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import TextField from "material-ui/TextField";
+import RaisedButton from  "material-ui/RaisedButton";
 
 
 class Board extends React.Component {
@@ -8,12 +10,16 @@ class Board extends React.Component {
         //props
         super(props);
         // states, styles, event bind, 
-        this.createBoard = this.createBoard.bind(this);
+        this.state = {
+            isHidden: false
+        }
+      
     }
     createBoard = (e) => {
-        <CreateBoard />
+        this.setState({
+            isHidden: !this.state.isHidden
+        })
     }
-
     render() {
        
         if(this.props.boardQuery && this.props.boardQuery.loading) {
@@ -22,26 +28,29 @@ class Board extends React.Component {
         if(this.props.boardQuery && this.props.boardQuery.error) {
             return <div>{`Error: ${this.props.boardQuery.error}`}</div>
         }
+      
         let boards = this.props.boardQuery.boards;
         return (
-            <div class="displayBoard">
+            <div className = "displayBoard">
             <h2> Boards </h2>
-            <ul class = "board">
+            <ul className = "board">
             {
                 (boards.length > 0)?
                 boards.map((b) => {
                     return (
-                        <li key={b.id}>
+                        <li>
                           <a href="/list">{b.boardName}</a>
                         </li>
                     )
                 }): " Loading.. !"
             }
             <li>
-            <a href="#" class="createBoard" onclick={this.createBoard}>Create New Board</a>
+            <a href="#" className="createBoard" onClick={this.createBoard.bind(this)}>Create New Board</a>
             </li>
             </ul>
-            </div>
+            {this.state.isHidden && <AddBoardForm />}
+            
+            </div>   
         );
     }
 }
@@ -51,3 +60,37 @@ const FETCH_ALL_BOARDS = gql `query boardQuery {
 }`;
 
 export default graphql(FETCH_ALL_BOARDS, { name: 'boardQuery'})(Board);
+
+class AddBoardForm extends React.Component {
+        handleSubmit = (e) => {
+            let brdName = document.getElementById('boardName').value
+            this.props.mutate({
+                mutation: addBoardMutation,
+                variables:  { boardName: brdName}
+            })
+            .then(res => {
+                brdName = ""
+            });
+        }
+    
+    render() {
+        return (
+            <div className= "addBoardForm">
+                <form method="post" action="" onSubmit={this.handleSubmit} onClick={this.createBoard}>
+                    Enter Board name: <br />
+                    <TextField type="text" id="boardName"  hintText="Text" /> <br />
+                    <RaisedButton label="Submit"  primary={true}  />
+                </form>
+            </div>
+        )
+    }
+}
+
+const addBoardMutation = gql `
+    mutation MutationAddBoard($boardName: String!) {
+        MutationAddBoard(boardName: $boardName) {
+            id,
+            boardName
+        }
+    }`;
+    

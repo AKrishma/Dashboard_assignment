@@ -1,16 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 
 class Task extends React.Component {
-    constructor(props){
-        //props
-        super(props);
-        // states, styles, event bind, 
-        this.addTask = this.addTask.bind(this);
-    }
-
+    
     addTask = (e) => {
         
     }
@@ -36,9 +30,6 @@ class Task extends React.Component {
                     )
                 }): " Loading.. !"
             }
-            <li>
-                <a href="#" onclick={this.addTask}> Add a task </a>
-            </li>
             </ul>
             </div>
         );  
