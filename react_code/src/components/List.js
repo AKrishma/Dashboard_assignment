@@ -14,7 +14,10 @@ class List extends React.Component {
         }
         let lists = this.props.listQuery.lists;
         return (
-            <div class="displayList"><ul class="list">
+            <div class="displayList">
+            <h2> Lists</h2>
+            <p> Click on list name to view tasks it contains </p>
+            <ul class="list">
             {
                 (lists.length > 0)?
                 lists.map((l) => {
@@ -26,7 +29,7 @@ class List extends React.Component {
                 }): " Loading.. !"
             }
             </ul>
-            <p><a href="#"> Add a task </a></p>
+            <p><a href="#"> Add new list </a></p>
             </div>
         );  
     }

@@ -19,7 +19,9 @@ class Task extends React.Component {
         }
         let tasks = this.props.taskQuery.tasks;
         return (
-            <div class="displayTask"><ul class="tasks">
+            <div class="displayTask">
+            <h2> Tasks </h2>
+            <ul class="tasks">
             {
                 (tasks.length > 0) ?
                 tasks.map((t) => {
@@ -31,6 +33,7 @@ class Task extends React.Component {
                 }): " Loading.. !"
             }
             </ul>
+            <p><a href="#"> Add a task </a></p>
             </div>
         );  
     }

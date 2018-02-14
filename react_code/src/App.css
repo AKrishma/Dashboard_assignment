@@ -58,9 +58,9 @@
   min-height: 65px;
   display: block;
 }
-.displayList,
-.displayTask {
-  background-color:#d1d5d6;
+.displayList ul,
+.displayTask ul {
+  background-color:#84e6aa;
   color: #000;
   width: 25%;
   padding: 10px;
@@ -83,16 +83,21 @@
   padding:5px;
 }
 .displayList li:hover {
-  background: #ccc;
+  background: #83be9a;
 }
-.displayTask {
-  background-color:#a1a6a8;
+.displayTask ul{
+  background-color:#840000;
   color: #000;
 }
 .displayTask li {
   padding: 5px;
 }
-
+.displayList p a,
+.displayTask p a {
+  text-decoration: underline;
+  color: #000;
+  padding-left: 10px;
+}
 .addBoardForm {
   position: relative;
   width: 50%;
