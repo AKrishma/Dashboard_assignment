@@ -74,7 +74,7 @@ const fetch = createApolloFetch({
 
 class AddBoardForm extends React.Component {
     
-    handleSubmit = (e) => { alert('submit');
+    handleSubmit = (e) => { 
             let brdName = document.getElementById('boardName').value
             console.log(brdName);
             /* this.props.mutate({
