@@ -40,7 +40,7 @@ class Board extends React.Component {
                 boards.map((b) => {
                     return (
                         <li>
-                          <a href="/list/:${b.id}">{b.boardName}</a>
+                          <a href="/list/">{b.boardName}</a>
                         </li>
                     )
                 }): " Loading.. !"
