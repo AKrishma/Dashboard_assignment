@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import TextField from "material-ui/TextField";
 import RaisedButton from  "material-ui/RaisedButton";
+import { createApolloFetch } from 'apollo-fetch';
 
 
 class Board extends React.Component {
@@ -39,7 +40,7 @@ class Board extends React.Component {
                 boards.map((b) => {
                     return (
                         <li>
-                          <a href="/list">{b.boardName}</a>
+                          <a href="/list/:${b.id}">{b.boardName}</a>
                         </li>
                     )
                 }): " Loading.. !"
@@ -61,25 +62,37 @@ const FETCH_ALL_BOARDS = gql `query boardQuery {
 
 export default graphql(FETCH_ALL_BOARDS, { name: 'boardQuery'})(Board);
 
+const fetch = createApolloFetch({
+    uri: 'http://localhost:4000/',
+  });
+  
+  fetch({
+    query: '{ board { boardName }}',
+  }).then(res => {
+    console.log('FETCH: '+res.data);
+  });    
+
 class AddBoardForm extends React.Component {
-        handleSubmit = (e) => {
+    
+    handleSubmit = (e) => { alert('submit');
             let brdName = document.getElementById('boardName').value
-            this.props.mutate({
+            console.log(brdName);
+            /* this.props.mutate({
                 mutation: addBoardMutation,
                 variables:  { boardName: brdName}
             })
             .then(res => {
                 brdName = ""
-            });
+            }); */
         }
     
     render() {
         return (
             <div className= "addBoardForm">
-                <form method="post" action="" onSubmit={this.handleSubmit} onClick={this.createBoard}>
+                <form method="post" action="" >
                     Enter Board name: <br />
                     <TextField type="text" id="boardName"  hintText="Text" /> <br />
-                    <RaisedButton label="Submit"  primary={true}  />
+                    <RaisedButton label="Submit"  primary={true} onClick={this.handleSubmit.bind(this)} />
                 </form>
             </div>
         )

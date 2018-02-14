@@ -10,21 +10,15 @@ var Board = mongoose.model('board', {
  List = mongoose.model('list', {  
     id: mongoose.Schema.Types.ObjectId,
     boardId: mongoose.Schema.Types.ObjectId,
-    listName: String,
-    tasks: [{
-      id: mongoose.Schema.Types.ObjectId,
-      taskName: String,
-      taskDesc: String,
-      taskStatus: String
-    }]
+    listName: String
   });
- /* Task = mongoose.model('task', {  
+ Task = mongoose.model('task', {  
     id: mongoose.Schema.Types.ObjectId,
     listId: mongoose.Schema.Types.ObjectId,
     taskName: String,
     taskDesc: String,
     taskStatus: String
-  });  */
+  }); 
 
 var BoardType = new graphql.GraphQLObjectType({  
     name: 'board',
@@ -51,9 +45,6 @@ var ListType = new graphql.GraphQLObjectType({
         },
         listName: {
           type: graphql.GraphQLString
-        },
-        tasks: {
-          type: graphql.GraphQLList
         }
       }
     }
@@ -152,9 +143,6 @@ var ListType = new graphql.GraphQLObjectType({
         },
         listName: {
           type:  graphql.GraphQLString
-      },
-      tasks: {
-          type: graphql.GraphQLList
       }
     },
     resolve: (root, args) => {
@@ -203,8 +191,8 @@ var ListType = new graphql.GraphQLObjectType({
         })
       })
     }
-  },
-  MutationEditTask = {
+  }
+  /* MutationEditTask = {
       type: TaskType,
       args: {
         listId: {
@@ -228,7 +216,7 @@ var ListType = new graphql.GraphQLObjectType({
         )
           .catch(err => new Error(err));
       }
-    }
+    } */
   
   
   var MutationType = new graphql.GraphQLObjectType({  
