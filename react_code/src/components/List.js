@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import TextField from "material-ui/TextField";
 import RaisedButton from  "material-ui/RaisedButton";
+import Task from './Task';
 
 class List extends React.Component {
 
@@ -28,14 +29,14 @@ class List extends React.Component {
         return (
             <div class="displayList">
             <h2> Lists</h2>
-            <p> Click on list name to view tasks it contains </p>
             <ul class="list">
             {
                 (lists.length > 0)?
                 lists.map((l) => {
                     return (
                         <li boardId= {l.boardId} className = "listIem">
-                            <a href="/task">{l.listName}</a>
+                          {l.listName}
+                            <Task />
                         </li>
                     )
                 }): " Loading.. !"

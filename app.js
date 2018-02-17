@@ -4,7 +4,7 @@ const   http =  require('http'),
         bodyParser = require('body-parser'),
         graphqlhttp = require('express-graphql'),
         graphqlSchema = require('./graphql_api/graphqlSchema'),
-       //dashboardSchema = require('./graphql_api/dashboardSchema'),
+        mongoosSchema = require('./graphql_api/mongoosSchema'),
         mongoConn = require('./mongoConnection')();
 
 /*  var query = 'query { boards { id, boardName } }'  

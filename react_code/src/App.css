@@ -43,7 +43,7 @@
 .displayBoard li,
 .displayList li  {
   padding: 10px;
-  margin: 0 10px 0 0;
+  margin: 0 10px 10px 0;
   border-radius: 5px;
 }
 .displayBoard  li {
@@ -60,19 +60,25 @@
 }
 .displayList ul,
 .displayTask ul {
-  background-color:#84e6aa;
   color: #000;
-  width: 25%;
   padding: 10px;
 }
-.displayList li,
+
+.displayList li {
+  display: inline-block;
+  margin: 10px;
+  width: 25%;
+  background: #83f0ad;
+}
 .displayTask li  {
   list-style-type: none;
   display: block;
   background: #fff;
   border-radius: 5px;
   margin: 10px 0;
+  width: 100%;
 }
+
 .displayList li a,
 .displayTask li a {
   text-decoration: none;
@@ -82,13 +88,7 @@
 .displayList li a {
   padding:5px;
 }
-.displayList li:hover {
-  background: #83be9a;
-}
-.displayTask ul{
-  background-color:#840000;
-  color: #000;
-}
+
 .displayTask li {
   padding: 5px;
 }
@@ -101,8 +101,8 @@
 .addBoardForm,
 .addListForm,
 .addTaskForm {
-  position: relative;
-  width: 50%;
+  position: absolute;
+  cwidth: 50%;
   height: auto;
   background: #fff;
   margin: 0 auto;
@@ -110,4 +110,9 @@
   border-radius: 5px;
   padding: 20px;
   z-index: 10;
+}
+
+.deleteTask {
+  float: right;
+  cursor: pointer;
 }

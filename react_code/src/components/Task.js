@@ -18,6 +18,9 @@ class Task extends React.Component {
             ishidden: !this.state.ishidden
         })
     }
+    deleteTask = (e) => {
+        alert('delete Task');
+    }
     render() {
        
         if(this.props.taskQuery && this.props.taskQuery.loading) {
@@ -29,7 +32,6 @@ class Task extends React.Component {
         let tasks = this.props.taskQuery.tasks;
         return (
             <div class="displayTask">
-            <h2> Tasks </h2>
             <ul class="tasks">
             {
                 (tasks.length > 0) ?
@@ -37,6 +39,7 @@ class Task extends React.Component {
                     return (
                         <li key={t.task} className = "taskItem" listId= {t.listId}>
                             {t.taskName}
+                        <span className="deleteTask" data-id={t.id} onClick={this.deleteTask.bind(this)}>X</span>
                         </li>
                     )
                 }): " Loading.. !"
@@ -61,12 +64,12 @@ export default graphql(FETCH_ALL_TASKS, { name: 'taskQuery'})(Task);
 class AddTaskForm extends React.Component {
     
     handleSubmit = (e) => { 
-            let listName = document.getElementById('taskName').value,
-                boardId = document.getElementById('boardId').value;
-            console.log('NewList: '+listName);
-            console.log('boardId: '+boardId);
-        }
-    
+        let listName = document.getElementById('taskName').value,
+            boardId = document.getElementById('boardId').value;
+        console.log('NewList: '+listName);
+        console.log('boardId: '+boardId);
+    }
+   
     render() {
         return (
             <div className= "addListForm">
@@ -77,12 +80,11 @@ class AddTaskForm extends React.Component {
                     Enter Task Description: <br />
                     <TextField type="text" id="taskDesc"  hintText="Text" /> <br />
                     Select Task status: <br />
-                    <SelectField
-                        floatingLabelText="Frequency">
-                        <MenuItem value={1} primaryText="Backlog" />
-                        <MenuItem value={2} primaryText="Doing" />
-                        <MenuItem value={3} primaryText="Done" />
-                    </SelectField> <br />
+                    <select>
+                        <option value="1">Backlog</option>
+                        <option value="2">Doing</option>
+                        <option value="3">Done </option>
+                    </select> <br /><br />
                     <RaisedButton label="Submit"  primary={true} onClick={this.handleSubmit.bind(this)} />
                 </form>
             </div>

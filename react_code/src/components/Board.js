@@ -5,7 +5,6 @@ import TextField from "material-ui/TextField";
 import RaisedButton from  "material-ui/RaisedButton";
 import { createApolloFetch } from 'apollo-fetch';
 
-
 class Board extends React.Component {
     constructor(props){
         //props
@@ -14,7 +13,6 @@ class Board extends React.Component {
         this.state = {
             isHidden: false
         }
-      
     }
     createBoard = (e) => {
         this.setState({
