@@ -1,11 +1,23 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-
+import TextField from "material-ui/TextField";
+import RaisedButton from  "material-ui/RaisedButton";
 
 class List extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state =  {
+            ishidden: false
+        }
+    }
+    createList = (e) => {
+        this.setState({
+            ishidden: !this.state.ishidden
+        })
+    }
      render() {
-       
         if(this.props.listQuery && this.props.listQuery.loading) {
             return <div>{"loading...!"}</div>
         }
@@ -29,7 +41,9 @@ class List extends React.Component {
                 }): " Loading.. !"
             }
             </ul>
-            <p><a href="#"> Add new list </a></p>
+            <p><a href="#" onClick={this.createList.bind(this)}> Add new list </a></p>
+
+            {this.state.ishidden && <AddListForm /> }
             </div>
         );  
     }
@@ -40,3 +54,27 @@ const FETCH_ALL_LISTS = gql `query listQuery {
 }`;
 
 export default graphql(FETCH_ALL_LISTS, { name: 'listQuery'})(List);
+
+
+class AddListForm extends React.Component {
+    
+    handleSubmit = (e) => { 
+            let listName = document.getElementById('listName').value,
+                boardId = document.getElementById('boardId').value;
+            console.log('NewList: '+listName);
+            console.log('boardId: '+boardId);
+        }
+    
+    render() {
+        return (
+            <div className= "addListForm">
+                <form method="post" action="" >
+                    <input type="hidden" id="boardId" value="" /> <br />
+                    Enter List name: <br />
+                    <TextField type="text" id="listName"  hintText="Text" /> <br />
+                    <RaisedButton label="Submit"  primary={true} onClick={this.handleSubmit.bind(this)} />
+                </form>
+            </div>
+        )
+    }
+}

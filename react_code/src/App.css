@@ -98,10 +98,12 @@
   color: #000;
   padding-left: 10px;
 }
-.addBoardForm {
+.addBoardForm,
+.addListForm,
+.addTaskForm {
   position: relative;
   width: 50%;
-  height: 100px;
+  height: auto;
   background: #fff;
   margin: 0 auto;
   border: 2px solid #000;

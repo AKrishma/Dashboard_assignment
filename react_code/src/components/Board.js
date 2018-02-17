@@ -40,13 +40,13 @@ class Board extends React.Component {
                 boards.map((b) => {
                     return (
                         <li>
-                          <a href="/list/">{b.boardName}</a>
+                          <a href="/list">{b.boardName}</a>
                         </li>
                     )
                 }): " Loading.. !"
             }
             <li>
-            <a href="#" className="createBoard" onClick={this.createBoard.bind(this)}>Create New Board</a>
+            <a href="#"  onClick={this.createBoard.bind(this)}>Create New Board</a>
             </li>
             </ul>
             {this.state.isHidden && <AddBoardForm />}
