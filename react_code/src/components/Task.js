@@ -3,8 +3,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import TextField from "material-ui/TextField";
 import RaisedButton from  "material-ui/RaisedButton";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
 
 class Task extends React.Component {
     constructor(props) {
@@ -31,8 +29,8 @@ class Task extends React.Component {
         }
         let tasks = this.props.taskQuery.tasks;
         return (
-            <div class="displayTask">
-            <ul class="tasks">
+            <div className="displayTask">
+            <ul className="tasks">
             {
                 (tasks.length > 0) ?
                 tasks.map((t) => {

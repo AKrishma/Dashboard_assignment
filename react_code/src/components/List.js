@@ -27,9 +27,9 @@ class List extends React.Component {
         }
         let lists = this.props.listQuery.lists;
         return (
-            <div class="displayList">
+            <div className="displayList">
             <h2> Lists</h2>
-            <ul class="list">
+            <ul className="list">
             {
                 (lists.length > 0)?
                 lists.map((l) => {

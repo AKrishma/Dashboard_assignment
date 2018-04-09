@@ -4,14 +4,13 @@ const   http =  require('http'),
         bodyParser = require('body-parser'),
         graphqlhttp = require('express-graphql'),
         graphqlSchema = require('./graphql_api/graphqlSchema'),
-        mongoosSchema = require('./graphql_api/mongoosSchema'),
+        //mongoosSchema = require('./graphql_api/mongoosSchema'),
         mongoConn = require('./mongoConnection')();
 
-/*  var query = 'query { boards { id, boardName } }'  
+/* var query = 'query { boards { id, boardName } }'  
 graphql(graphqlSchema, query).then( function(result) {  
     console.log(JSON.stringify(result,null," "));
-
-})  */
+}) */
 
 app = express();
 

@@ -1,6 +1,24 @@
 
 var graphql = require ('graphql');  
+var mongoose = require('mongoose');
 
+// Mongoose Schema
+var Board = mongoose.model('board', {  
+    id: mongoose.Schema.Types.ObjectId,
+    boardName: String
+  }),
+ List = mongoose.model('list', {  
+    id: mongoose.Schema.Types.ObjectId,
+    boardId: mongoose.Schema.Types.ObjectId,
+    listName: String
+  }),
+ Task = mongoose.model('task', {  
+    id: mongoose.Schema.Types.ObjectId,
+    listId: mongoose.Schema.Types.ObjectId,
+    taskName: String,
+    taskDesc: String,
+    taskStatus: String
+  }); 
 
   // Graphql Schema
 var BoardType = new graphql.GraphQLObjectType({  
