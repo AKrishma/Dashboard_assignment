@@ -59,6 +59,13 @@ export default graphql(FETCH_ALL_LISTS, { name: 'listQuery'})(List);
 
 class AddListForm extends React.Component {
     
+    constructor(props) {
+        super(props);
+        this.state =  {
+            listName: '',
+            boardId: ''
+        }
+    }
     handleSubmit = (e) => { 
             let listName = document.getElementById('listName').value,
                 boardId = document.getElementById('boardId').value;
@@ -72,7 +79,7 @@ class AddListForm extends React.Component {
                 <form method="post" action="" >
                     <input type="hidden" id="boardId" value="" /> <br />
                     Enter List name: <br />
-                    <TextField type="text" id="listName"  hintText="Text" /> <br />
+                    <TextField type="text" id="listName"  hintText="Text" onChange= {(e) => { this.setState({listName: e.target.value}) }} /> <br />
                     <RaisedButton label="Submit"  primary={true} onClick={this.handleSubmit.bind(this)} />
                 </form>
             </div>

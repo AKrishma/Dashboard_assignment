@@ -52,11 +52,15 @@
   background-color: #1e87bb;
   font-weight: bold;
 }
+.displayBoard  li.createBoard {
+  background-color: #bca;
+}
 .displayBoard li a {
   text-decoration: none;
   color: #fff;
   min-height: 65px;
   display: block;
+  float: left;
 }
 .displayList ul,
 .displayTask ul {
@@ -112,7 +116,8 @@
   z-index: 10;
 }
 
-.deleteTask {
+.deleteTask,
+.deleteBoard {
   float: right;
   cursor: pointer;
 }

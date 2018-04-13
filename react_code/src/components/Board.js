@@ -1,15 +1,14 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 import TextField from "material-ui/TextField";
 import RaisedButton from  "material-ui/RaisedButton";
 import { createApolloFetch } from 'apollo-fetch';
 
 class Board extends React.Component {
     constructor(props){
-        //props
         super(props);
-        // states, styles, event bind, 
         this.state = {
             isHidden: false
         }
@@ -18,6 +17,9 @@ class Board extends React.Component {
         this.setState({
             isHidden: !this.state.isHidden
         })
+    }
+    deleteBoard = (e) => {
+        alert('delete board');
     }
     render() {
        
@@ -39,11 +41,12 @@ class Board extends React.Component {
                     return (
                         <li>
                           <a href="/list">{b.boardName}</a>
+                          <span className="deleteBoard" onClick={(e) => {this.deleteBoard.bind(this)}}> x </span>
                         </li>
                     )
                 }): " Loading.. !"
             }
-            <li>
+            <li className="createBoard">
             <a href="#"  onClick={this.createBoard.bind(this)}>Create New Board</a>
             </li>
             </ul>
@@ -60,28 +63,36 @@ const FETCH_ALL_BOARDS = gql `query boardQuery {
 
 export default graphql(FETCH_ALL_BOARDS, { name: 'boardQuery'})(Board);
 
-const fetch = createApolloFetch({
-    uri: 'http://localhost:4000/',
-  });
+  const addBoardMutation = gql `
+  mutation MutationAddBoard($boardName: String!) {
+      MutationAddBoard(boardName: $boardName) {
+          id,
+          boardName
+      }
+  }`;
   
-  fetch({
-    query: '{ board { boardName }}',
-  }).then(res => {
-    console.log('FETCH: '+res.data);
-  });    
-
 class AddBoardForm extends React.Component {
-    
+    constructor(props){
+        super(props);
+        this.state = {
+            boardName: '',
+            hidden: true
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+   
     handleSubmit = (e) => { 
-            let brdName = document.getElementById('boardName').value
-            console.log(brdName);
+        e.preventDefault();
+            alert(this.state.boardName + 'Board has been added');
             /* this.props.mutate({
                 mutation: addBoardMutation,
-                variables:  { boardName: brdName}
+                variables:  { boardName: this.state.boardName}
             })
-            .then(res => {
-                brdName = ""
-            }); */
+            .then(data => {
+                console.log('Data: '+data);
+            }) */
+            this.state.hidden = false;
+            this.isHidden = true;
         }
     
     render() {
@@ -89,19 +100,13 @@ class AddBoardForm extends React.Component {
             <div className= "addBoardForm">
                 <form method="post" action="" >
                     Enter Board name: <br />
-                    <TextField type="text" id="boardName"  hintText="Text" /> <br />
-                    <RaisedButton label="Submit"  primary={true} onClick={this.handleSubmit.bind(this)} />
+                    <TextField type="text" id="boardName"  hintText="Text" onChange= {(e) => { this.setState({boardName: e.target.value}) }} /> <br />
+                    <RaisedButton label="Submit"  primary={true} onClick={(e) =>{ this.handleSubmit(e) }} />
                 </form>
             </div>
         )
     }
 }
 
-const addBoardMutation = gql `
-    mutation MutationAddBoard($boardName: String!) {
-        MutationAddBoard(boardName: $boardName) {
-            id,
-            boardName
-        }
-    }`;
+
     

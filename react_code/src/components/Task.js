@@ -60,12 +60,18 @@ const FETCH_ALL_TASKS = gql `query taskQuery {
 export default graphql(FETCH_ALL_TASKS, { name: 'taskQuery'})(Task);
 
 class AddTaskForm extends React.Component {
-    
+    constructor(props) {
+        super(props);
+        this.state =  {
+            taskName: '',
+            taskDesc: '',
+            listId: ''
+        }
+    }
     handleSubmit = (e) => { 
-        let listName = document.getElementById('taskName').value,
-            boardId = document.getElementById('boardId').value;
-        console.log('NewList: '+listName);
-        console.log('boardId: '+boardId);
+        let listName = this.state.taskName,
+            taskDesc = this.state.taskDesc,
+            listId = this.state.listId;
     }
    
     render() {
@@ -74,9 +80,9 @@ class AddTaskForm extends React.Component {
                 <form method="post" action="" >
                     <input type="hidden" id="listId"  value= "" /> <br />
                     Enter Task name: <br />
-                    <TextField type="text" id="taskName"  hintText="Text" /> <br />
+                    <TextField type="text" id="taskName"  hintText="Text" onChange= {(e) => { this.setState({taskName: e.target.value}) }}/> <br />
                     Enter Task Description: <br />
-                    <TextField type="text" id="taskDesc"  hintText="Text" /> <br />
+                    <TextField type="text" id="taskDesc"  hintText="Text" onChange= {(e) => { this.setState({taskDesc: e.target.value}) }} /> <br />
                     Select Task status: <br />
                     <select>
                         <option value="1">Backlog</option>
