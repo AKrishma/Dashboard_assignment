@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Board from './components/Board' ;
+import BoardList from './components/BoardList' ;
+import CreateBoard from './components/CreateBoard' ;
 import List from './components/List' ;
 import Task from './components/Task' ;
 
@@ -31,9 +32,10 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <h2>{ "React + Graphql Integration: Display Boards" }  </h2>
-        <Board />
-        <List />
-        <Task />
+        <BoardList />
+        <CreateBoard />
+        {/* <List />
+        <Task /> */}
        
       </div>
     );
